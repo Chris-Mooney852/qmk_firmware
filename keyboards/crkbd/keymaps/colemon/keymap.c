@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
+      SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(3),  KC_SPC,     KC_ENT,   MO(4), SC_RSPC
                                       //`--------------------------'  `--------------------------'
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
+     SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  KC_LCBR,
  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LALT,   MO(2),  KC_SPC,     KC_ENT,   MO(4), SC_RSPC
+                                         KC_LGUI,   MO(2),  KC_SPC,     KC_ENT,   MO(4), SC_RSPC
                                      //`--------------------------'  `--------------------------'
  ),
  //GAME2
@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, KC_MPLY,                      KC_PLUS,   KC_4,   KC_5,   KC_6, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      SC_LCPO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MNXT,                      KC_EQL,   KC_1,   KC_2,   KC_3,  XXXXXXX, SC_RSPC,
+      SC_LCPO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MNXT,                      KC_EQL,   KC_1,   KC_2,   KC_3,  XXXXXXX, KC_LCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  KC_SPC,    KC_SPC,   MO(5), KC_0
                                       //`--------------------------'  `--------------------------'
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_CAPS, KC_CIRC, KC_AMPR, KC_LCBR, KC_LBRC, KC_LPRN,                      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,  KC_END, KC_PGDN,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, KC_ASTR, KC_UNDS, KC_BSLS, KC_PIPE, XXXXXXX,                      KC_RPRN, KC_RBRC, KC_RCBR, XXXXXXX, KC_DEL, SC_RSPC,
+      KC_LCTL, KC_ASTR, KC_UNDS, KC_BSLS, KC_PIPE, XXXXXXX,                      KC_RPRN, KC_RBRC, KC_RCBR, XXXXXXX, KC_DEL, KC_LCBR,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   MO(5), KC_BSPC,    _______, _______, KC_LALT
                                       //`--------------------------'  `--------------------------'
@@ -116,13 +116,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // }
 
 static void render_logo(void) {
-    static const unsigned char PROGMEM raw_logo[] = {
+    static const char PROGMEM hexagram_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,192,192,192,192,240,240,240,240,240,240,240,240,192,192,192,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 60, 60,255,255,255,255, 63, 63,207,207,207,207, 63, 63,255,255,255,255, 60, 60,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  3, 60, 60, 60, 60,252,252,243,243,243,243,252,252, 60, 60, 60, 60,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-    };
-    oled_write_raw_P(raw_logo, sizeof(raw_logo));
+};
+    oled_write_raw_P(hexagram_logo, sizeof(hexagram_logo));
 }
-
-
 
 /* KEYBOARD PET START */
 
@@ -386,7 +384,6 @@ bool oled_task_user(void) {
             break;
  
         /* KEYBOARD PET STATUS END */
-}
-
-return true;
-}
+    }
+    return true;
+ }
