@@ -28,9 +28,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       KC_TAB,    KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                         KC_H,    KC_N,    KC_E,    KC_I,    KC_O, KC_QUOT,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_LEAD,
+      SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                          KC_LGUI,   MO(3),  KC_SPC,     KC_ENT,   MO(4), SC_RSPC
+                                          KC_LGUI,   MO(3),  KC_SPC,     KC_ENT,   MO(4), QK_LEAD
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -41,9 +41,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
      KC_TAB,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,
  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-     SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  QK_LEAD,
+     SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                         KC_LGUI,   MO(2),  KC_SPC,     KC_ENT,   MO(4), SC_RSPC
+                                         KC_LGUI,   MO(2),  KC_SPC,     KC_ENT,   MO(4), QK_LEAD
                                      //`--------------------------'  `--------------------------'
  ),
  //GAME2
@@ -394,11 +394,32 @@ void leader_start_user(void) {
 
 void leader_end_user(void) {
     if (leader_sequence_one_key(KC_E)) {
-        // Leader, e => Types the below string
-        SEND_STRING("chris.mooney@smartspeak.ai");
+      // Send email
+      SEND_STRING("chris.mooney@smartspeak.ai");
     } else if (leader_sequence_one_key(KC_M)) {
       // press gui + alt + x
+      // enables warpd
       tap_code16(LALT(LGUI(KC_X)));
+    } else if (leader_sequence_one_key(KC_S)) {
+      // Screenshot
+      tap_code16(LGUI(KC_D));
+      wait_ms(50);
+      SEND_STRING("flameshot gui\n");
+    } else if (leader_sequence_one_key(KC_C)) {
+      // Copy
+      tap_code16(LCTL(KC_C));
+    } else if (leader_sequence_one_key(KC_V)) {
+      // Paste (ctrl + v)
+      tap_code16(LCTL(KC_V));
+    } else if (leader_sequence_two_keys(KC_S, KC_C)) {
+      // press ctrl + shift + c
+      tap_code16(LCTL(LSFT(KC_C)));
+    } else if (leader_sequence_two_keys(KC_S, KC_V)) {
+      // press ctrl + shift + v
+      tap_code16(LCTL(LSFT(KC_V)));
+    } else if (leader_sequence_one_key(KC_Q)) {
+      // press gui + shift + q
+      tap_code16(LGUI(LSFT(KC_Q)));
     }
     // } else if (leader_sequence_two_keys(KC_D, KC_D)) {
     //     // Leader, d, d => Ctrl+A, Ctrl+C
