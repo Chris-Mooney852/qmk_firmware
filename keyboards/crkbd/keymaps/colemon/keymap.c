@@ -99,22 +99,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef OLED_ENABLE
 
-
-/* 32 * 32 logo */
-// static void render_logo(void) {
-//     static const char PROGMEM hexagram_logo[] = {
-// 	0x00, 0x00, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0xc0, 0x70, 0x18, 0x06, 
-//     0x06, 0x18, 0x70, 0xc0, 0x80, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x00, 0x00, 
-//     0x00, 0x00, 0x01, 0x07, 0x1f, 0x32, 0x66, 0xc4, 0x6c, 0x38, 0x1e, 0x37, 0x61, 0xc0, 0x80, 0x80, 
-//     0x80, 0x80, 0xc0, 0x61, 0x37, 0x1e, 0x38, 0x6c, 0xc4, 0x66, 0x32, 0x1f, 0x07, 0x01, 0x00, 0x00, 
-//     0x00, 0x00, 0x80, 0xe0, 0xf8, 0x4c, 0x66, 0x23, 0x36, 0x1c, 0x78, 0xec, 0x86, 0x03, 0x01, 0x01, 
-//     0x01, 0x01, 0x03, 0x86, 0xec, 0x78, 0x1c, 0x36, 0x23, 0x66, 0x4c, 0xf8, 0xe0, 0x80, 0x00, 0x00, 
-//     0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x03, 0x0e, 0x18, 0x60, 
-//     0x60, 0x18, 0x0e, 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00
-// };
-//     oled_write_raw_P(hexagram_logo, sizeof(hexagram_logo));
-// }
-
 static void render_logo(void) {
     static const char PROGMEM hexagram_logo[] = {
         0,  0,  0,  0,  0,  0,  0,  0,192,192,192,192,240,240,240,240,240,240,240,240,192,192,192,192,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 60, 60,255,255,255,255, 63, 63,207,207,207,207, 63, 63,255,255,255,255, 60, 60,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  3,  3, 60, 60, 60, 60,252,252,243,243,243,243,252,252, 60, 60, 60, 60,  3,  3,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -396,14 +380,16 @@ void leader_end_user(void) {
     if (leader_sequence_one_key(KC_E)) {
       // Send email
       SEND_STRING("chris.mooney@smartspeak.ai");
+    } else if (leader_sequence_one_key(KC_N)) {
+      SEND_STRING("chris");
     } else if (leader_sequence_one_key(KC_M)) {
       // press gui + alt + x
       // enables warpd
       tap_code16(LALT(LGUI(KC_X)));
-    } else if (leader_sequence_one_key(KC_S)) {
+    } else if (leader_sequence_two_keys(KC_S, KC_S)) {
       // Screenshot
       tap_code16(LGUI(KC_D));
-      wait_ms(50);
+      wait_ms(60);
       SEND_STRING("flameshot gui\n");
     } else if (leader_sequence_one_key(KC_C)) {
       // Copy
@@ -421,14 +407,4 @@ void leader_end_user(void) {
       // press gui + shift + q
       tap_code16(LGUI(LSFT(KC_Q)));
     }
-    // } else if (leader_sequence_two_keys(KC_D, KC_D)) {
-    //     // Leader, d, d => Ctrl+A, Ctrl+C
-    //     SEND_STRING(SS_LCTL("a") SS_LCTL("c"));
-    // } else if (leader_sequence_three_keys(KC_D, KC_D, KC_S)) {
-    //     // Leader, d, d, s => Types the below string
-    //     SEND_STRING("https://start.duckduckgo.com\n");
-    // } else if (leader_sequence_two_keys(KC_A, KC_S)) {
-    //     // Leader, a, s => GUI+S
-    //     tap_code16(LGUI(KC_S));
-    // }
 }
