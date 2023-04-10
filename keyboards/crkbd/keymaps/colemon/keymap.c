@@ -20,6 +20,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 //#include <stdio.h>
 
+// Tap dance declarations
+enum {
+  TD_0_PERIOD,
+};
+
+// Tap dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+  [TD_0_PERIOD] = ACTION_TAP_DANCE_DOUBLE(KC_0, KC_DOT),
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //COLEMAK
   [0] = LAYOUT_split_3x6_3(
@@ -30,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                 OSM(MOD_LGUI),   _______,  KC_SPC,     KC_ENT,   TO(3), QK_LEAD
+                                 OSM(MOD_LGUI),   QK_GESC,  KC_SPC,     KC_ENT,   TO(3), QK_LEAD
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -63,19 +73,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //,-----------------------------------------------------.                   ,-----------------------------------------------------.
        KC_GRAVE, KC_EXLM,   KC_AT, KC_HASH,  KC_DLR, KC_PERC,                      KC_MINS,   KC_7,   KC_8,   KC_9, KC_RPRN,  KC_BSPC,
    //|--------+--------+--------+--------+--------+--------|                   |--------+--------+--------+--------+--------+--------|
-       KC_CAPS, KC_CIRC, KC_AMPR, KC_LCBR, KC_LBRC, KC_LPRN,                    KC_PLUS,   KC_4,   KC_5,   KC_6, KC_RBRC, KC_DEL,
+       KC_TAB, KC_CIRC, KC_AMPR, KC_LCBR, KC_LBRC, KC_LPRN,                    KC_PLUS,   KC_4,   KC_5,   KC_6, KC_RBRC, KC_DEL,
    //|--------+--------+--------+--------+--------+--------|                   |--------+--------+--------+--------+--------+--------|
        KC_LCTL, KC_ASTR, KC_UNDS, KC_BSLS, KC_PIPE, XXXXXXX,                     KC_EQL,   KC_1,   KC_2,   KC_3,  KC_RCBR, CW_TOGG,
    //|--------+--------+--------+--------+--------+--------+--------| |--------+--------+--------+--------+--------+--------+--------|
-                             OSM(MOD_LGUI),   TO(0), LSFT_T(KC_SPC),   KC_ENT,   TO(4), KC_0
+                             OSM(MOD_LGUI),   TO(0), LSFT_T(KC_SPC),   KC_ENT,   TO(4), TD(TD_0_PERIOD)
                                        //`--------------------------' `--------------------------'
   ),
  //RAISE
   [4] = LAYOUT_split_3x6_3(
    //,-----------------------------------------------------.                    ,-----------------------------------------------------.
-        QK_GESC, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, KC_MPRV,                     XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, KC_HOME, KC_BSPC,
+        QK_GESC, XXXXXXX, KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, KC_MPRV,                     XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX, KC_HOME, KC_BSPC,
    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-       KC_TAB, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX, KC_MPLY,                       KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,  KC_END, KC_DEL,
+   KC_TAB, XXXXXXX, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MPLY,               KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,  KC_END, KC_DEL,
    //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
        SC_LCPO, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MNXT,                      KC_RPRN, KC_RBRC, KC_RCBR, XXXXXXX, KC_DEL, KC_LCBR,
    //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
@@ -311,10 +321,10 @@ static void print_status_narrow(void) {
             oled_write("Game2", false);
             break;
         case 3:
-            oled_write("Lower", false);
+            oled_write("Num   ", false);
             break;
         case 4:
-            oled_write("Raise", false);
+            oled_write("Nav   ", false);
             break;
         case 5:
             oled_write("Adj  ", false);
@@ -382,6 +392,8 @@ void leader_end_user(void) {
       SEND_STRING("chris.mooney@smartspeak.ai");
     } else if (leader_sequence_one_key(KC_N)) {
       SEND_STRING("chris");
+    } else if (leader_sequence_one_key(KC_R)) {
+      SEND_STRING("__reset_chat__");
     } else if (leader_sequence_one_key(KC_M)) {
       // press gui + alt + x
       // enables warpd
