@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
       SC_LCPO,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_K,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,  SC_RSPC,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                 OSM(MOD_LGUI),   QK_GESC,  KC_SPC,     KC_ENT,   TO(3), QK_LEAD
+                                 OSM(MOD_LGUI),   QK_GESC,  MEH_T(KC_SPC),     KC_ENT,   TO(3), QK_LEAD
                                       //`--------------------------'  `--------------------------'
 
   ),
@@ -270,14 +270,14 @@ if (current_wpm > 0) {
     oled_write(" wpm", false);
 
  /* this fixes the screen on and off bug */
-   
+
     } else if(timer_elapsed32(anim_sleep) > OLED_TIMEOUT) {
         /* clear */
         oled_set_cursor(0,0);
         oled_write("                                                                                                                        ", false);
         oled_off();
-       
-   
+
+
     }
 }
 
@@ -303,7 +303,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 }
 
 static void print_status_narrow(void) {
-   
+
 
     /* Print current layer */
     oled_write("LAYER", false);
@@ -363,7 +363,7 @@ bool oled_task_user(void) {
  bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         /* KEYBOARD PET STATUS START */
- 
+
         case KC_LCTL:
             isSneaking = record->event.pressed;
             break;
@@ -376,7 +376,7 @@ bool oled_task_user(void) {
         case KC_CAPS:
             isBarking = record->event.pressed;
             break;
- 
+
         /* KEYBOARD PET STATUS END */
     }
     return true;
