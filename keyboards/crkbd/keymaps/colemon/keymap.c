@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //|--------+--------+--------+--------+--------+--------|                   |--------+--------+--------+--------+--------+--------|
        KC_LCTL, KC_ASTR, KC_UNDS, KC_BSLS, KC_PIPE, XXXXXXX,                     KC_EQL,   KC_1,   KC_2,   KC_3,  KC_RCBR, CW_TOGG,
    //|--------+--------+--------+--------+--------+--------+--------| |--------+--------+--------+--------+--------+--------+--------|
-                              OSM(MOD_LGUI),   TO(1), LSFT_T(KC_SPC),   KC_ENT,   TO(4), KC_0
+                              OSM(MOD_LGUI),   TO(1), LSFT_T(KC_SPC),   RALT_T(KC_ENT),   TO(4), KC_0
                                        //`--------------------------' `--------------------------'
  ),
  //LOWER
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    //|--------+--------+--------+--------+--------+--------|                   |--------+--------+--------+--------+--------+--------|
        KC_LCTL, KC_ASTR, KC_UNDS, KC_BSLS, KC_PIPE, XXXXXXX,                     KC_EQL,   KC_1,   KC_2,   KC_3,  KC_RCBR, CW_TOGG,
    //|--------+--------+--------+--------+--------+--------+--------| |--------+--------+--------+--------+--------+--------+--------|
-                             OSM(MOD_LGUI),   TO(0), LSFT_T(KC_SPC),   KC_ENT,   TO(4), TD(TD_0_PERIOD)
+                             OSM(MOD_LGUI),   TO(0), LSFT_T(KC_SPC),   RALT_T(KC_ENT),   TO(4), TD(TD_0_PERIOD)
                                        //`--------------------------' `--------------------------'
   ),
  //RAISE
